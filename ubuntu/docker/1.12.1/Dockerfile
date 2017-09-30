@@ -74,6 +74,12 @@ RUN set -x \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+# add docker-compose.yml
+RUN curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+
+# add node 8
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs && chmod a+x /usr/local/bin/dockerd-entrypoint.sh
+
 VOLUME /var/lib/docker
 
 ENTRYPOINT ["dockerd-entrypoint.sh"]
